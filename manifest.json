@@ -1,0 +1,177 @@
+{
+"update_url": "https://clients2.google.com/service/update2/crx",
+
+    "name": "Mopaiv+",
+    "version": "0.0.0.1",
+    "description": "Adds features around the Mopaiv website to make navigating, talking, customizing avatars, and more much easier.",
+    "manifest_version": 2,
+
+    "content_scripts": [
+        {
+            "matches": [
+                "https://mopaiv.com/*",
+                "https://*.mopaiv.com/*"
+            ],
+            "js": [ 
+                "./lib/jquery.js", 
+                "./lib/LZString.js", 
+                "./src/utils/storage.js",
+                "./src/allPages.js"
+            ],
+            "run_at": "document_start"
+        },
+        {
+            "matches": [
+                "https://mopaiv.com/*",
+                "https://*.mopaiv.com/*"
+                ],
+            "js": [
+                "./src/navbar.js"
+            ],
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "https://mopaiv.com/profile/*",
+                "https://*.mopaiv.com/profile/*"
+            ],
+            "js": [ 
+                "./lib/imageMerger.js",
+                "./src/getAssets.js",
+                "./src/rendering/getConfig.js",
+                "./src/rendering/renderAvatar.js", 
+                "./lib/jquery.js", 
+                "./lib/three.js", 
+                "./lib/OBJLoader.js", 
+                "./lib/OrbitControls.js", 
+                "./lib/MTLLoader.js", 
+                "./src/userProfiles.js"
+            ],
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "https://mopaiv.com/discussion/",
+                "https://mopaiv.com/discussion",
+                "https://*.mopaiv.com/discussion/",
+                "https://*.mopaiv.com/discussion"
+            ],
+            "js": [ "./src/forums/forumsHome.js" ],
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "https://mopaiv.com/discussion/post/*",
+                "https://*.mopaiv.com/discussion/post/"
+            ],
+            "js": [ 
+                "./src/rendering/getConfig.js",
+                "./src/forums/forums.js" 
+            ],
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "https://mopaiv.com/discussion/create/*",
+                "https://mopaiv.com/discussion/create/*/",
+                "https://mopaiv.com/discussion/reply/*/",
+                "https://mopaiv.com/discussion/reply/*",
+                "https://*.mopaiv.com/discussion/reply/*/",
+                "https://*.mopaiv.com/discussion/reply/*",
+                "https://*.mopaiv.com/discussion/create/*",
+                "https://*.mopaiv.com/discussion/create/*/"
+            ],
+            "js": [ "./src/forums/createPost.js" ],
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "https://mopaiv.com/discussion/",
+                "https://mopaiv.com/discussion"
+            ],
+            "js": [ "./src/forums/allForums.js" ],
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "https://mopaiv.com/settings",
+                "https://mopaiv.com/settings/"
+            ],
+            "js": [
+                "./src/settings.js" 
+            ],
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "https://mopaiv.com/market/item/*"
+            ],
+            "js": [ 
+                "./lib/imageMerger.js",
+                "./src/rendering/getConfig.js",
+                "./src/rendering/renderAvatar.js",
+                "./src/getAssets.js",
+                "./lib/three.js", 
+                "./lib/MTLLoader.js", 
+                "./lib/OBJLoader.js", 
+                "./lib/OrbitControls.js", 
+                "./src/rendering/renderItem.js",
+                "./src/itemPage.js"
+            ],
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "https://mopaiv.com/customize/"
+            ],
+            "js": [ 
+                "./lib/jquery.js", 
+                "./src/utils/storage.js",
+                "./src/avatar/lockItems.js",
+                "./src/avatar/customize.js" 
+            ],
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "https://mopaiv.com/messages/send/*"
+            ],
+            "js": [ "./src/messages.js" ],
+            "run_at": "document_end"
+        },
+        {
+            "matches": [
+                "https://mopaiv.com/friends/*",
+            ],
+            "js": [ "./src/friends.js" ],
+            "run_at": "document_end"
+        }
+    ],
+    "web_accessible_resources": [
+        "/src/rendering/config.json",
+        "/src/settings.json",
+
+        "/src/avatar/randomizerPurger.js",
+
+        "/static/Character.mtl",
+        "/static/Character.obj",
+
+        "/static/head.obj",
+        "/static/torso.obj",
+        "/static/right_arm.obj",
+        "/static/left_arm.obj",
+        "/static/right_leg.obj",
+        "/static/left_leg.obj"
+    ],
+    "icons": {
+        "16":"./icons/PLUS16.png",
+        "48":"./icons/PLUS48.png",
+        "128":"./icons/PLUS.png"
+    },
+    "permissions": [
+        "*://mopaiv.com/*"
+    ],
+    "background": {
+        "scripts": [ "./src/background.js" ]
+    }
+}
